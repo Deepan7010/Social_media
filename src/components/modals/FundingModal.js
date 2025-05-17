@@ -46,7 +46,7 @@ export const FundingDetailsAddModal = ({
         relationship,
         start_date: startDate,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "funding_details",
       };
       //console.log(data);
@@ -402,7 +402,7 @@ export const FundingDetailsEditModal = ({
         relationship,
         start_date: startDate,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "funding_details",
       };
       //console.log(data);

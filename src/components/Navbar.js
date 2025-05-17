@@ -38,6 +38,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.setItem("isAuthenticated", false);
     localStorage.removeItem("userId");
+    navigate("/");
     setUser({});
     setProfileData({});
     setIsAuthenticated(false);

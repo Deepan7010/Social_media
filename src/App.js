@@ -132,12 +132,13 @@ const InnerApp = () => {
         <Route path="/ArticleDetails/:id" element={<ArticleDetails />} />
       </Routes>
 
+      
       <Toaster
         position="top-center"
         toastOptions={{
           style: {
             marginTop: "60px",
-            width: "300px",
+            width: "fit-content",
           },
         }}
         reverseOrder={false}

@@ -161,16 +161,16 @@ const Profile = () => {
     }
   };
 
-  const handleRemoveFollower=async(unfollowerId)=>{
+  const handleRemoveFollower = async (unfollowerId) => {
     console.log("Id to be Unfollowed: ", unfollowerId);
 
     try {
       await api
         .post(
-          `/removeFollower`,
+          `/unfollow`,
           {
-            logged_id: user.id,
-            follow_id: unfollowerId,
+            logged_id: unfollowerId,
+            follow_id: user.id,
           },
           {
             headers: {
@@ -181,14 +181,14 @@ const Profile = () => {
         )
         .then((res) => {
           console.log(res.data);
-          toast.success(res.data.message);
+          toast.success("Succesfully Removed Follower");
           setIsDataFetched(false);
         });
     } catch (error) {
       console.log(error);
       toast.error("Error while Removing Follower");
     }
-  }
+  };
 
   const filterSuggestions = (followId) => {
     const updatedSuggestions = suggestedFollowers.filter((suggestion) => {
@@ -200,7 +200,7 @@ const Profile = () => {
   useEffect(() => {
     fetchFollowingData();
     fetchFollowersData();
-  }, [isDatafetched, user]);
+  }, [isDatafetched]);
 
   // console.log("Followers Data: ", followers);
   // console.log("Following Data: ", following);
@@ -339,7 +339,7 @@ const Profile = () => {
                         </p>
                       </div>
                       <RiDeleteBin2Line
-                        onClick={() => handleRemoveFollowing(follower.id)}
+                        onClick={() => handleRemoveFollower(follower.id)}
                         className="xss:text-3xl cursor-pointer sm:text-4xl text-black  rounded-xl p-1  mr-5 mb-2"
                       />
                     </div>

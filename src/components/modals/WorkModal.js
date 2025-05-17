@@ -25,7 +25,7 @@ export const WorkAddModal = ({
         journal_title: journalTitle,
         link,
         publication_date: publicationDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "works",
       };
 
@@ -179,7 +179,7 @@ export const WorkEditModal = ({
         journal_title: journalTitle,
         link,
         publication_date: publicationDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "works",
       };
 
