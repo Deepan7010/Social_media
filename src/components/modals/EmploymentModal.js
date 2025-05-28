@@ -31,7 +31,7 @@ export const EmploymentAddModal = ({
         start_date: startDate,
         end_date: endDate,
         role,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "employee",
       };
 
@@ -206,7 +206,7 @@ export const EmploymentEditModal = ({
   setEditData,
 }) => {
   //console.log("Employee Data: ", employeeData);
-  const { user, setFetchData } = useContext(Context);
+  const { user } = useContext(Context);
   const [organizationName, setOrganizationName] = useState(
     employeeData.organization
   );
@@ -229,7 +229,7 @@ export const EmploymentEditModal = ({
         start_date: startDate,
         end_date: endDate,
         role,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "employee",
       };
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-// import Stories from "./Stories";
+import Stories from "./Stories";
 
 export const Suggestionsbar = ({
   suggestedFollowers,
@@ -14,7 +14,7 @@ export const Suggestionsbar = ({
   const navigate = useNavigate();
   return (
     <div className="mx-auto xss:space-y-2 lg:space-y-2 xl:space-y-4 h-auto">
-      {/* {enableStories && <Stories />} */}
+      {enableStories && <Stories />}
 
       <div className="flex justify-between items-center">
         <h2 className="opacity-80 font-semibold text-md lg:text-lg text-gray-600">

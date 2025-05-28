@@ -14,7 +14,7 @@ export const EducationAddModal = ({
   setIsDataFetched,
   setAddData,
 }) => {
-  const { user, setFetchData } = useContext(Context);
+  const { user } = useContext(Context);
   const [organizationName, setOrganizationName] = useState("");
   const [department, setDepartment] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -39,7 +39,7 @@ export const EducationAddModal = ({
         degree: degree ? `${degree.getFullYear()}` : null,
         start_date: startDate ? startDate.getFullYear() : null,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "education",
       };
 
@@ -272,7 +272,7 @@ export const EducationEditModal = ({
         degree: isDegreeChanged ? `${degree.getFullYear()}` : degree,
         start_date: isStartYearChanged ? startDate.getFullYear() : startDate,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "education",
       };
 

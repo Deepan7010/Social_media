@@ -193,7 +193,7 @@ const OtherProfile = () => {
                   <p className="text-lg text-gray-500">
                     {otherProfileData?.country}
                   </p>
-                  <div className="mt-3 space-x-4 lg:ml-6 hidden xss:justify-center xss:items-center sm:flex lg:hidden">
+                  <div className="mt-3 space-x-4 lg:ml-6 hidden xss:justify-center xss:items-center sm:flex sm:justify-start lg:hidden">
                     <button
                       onClick={() => handleFollow(userId)}
                       className="bg-[#0000ff] hover:bg-blue-700 border-blue-600 rounded-md px-10 py-2 sm:px-4 text-white font-semibold text-lg"
@@ -291,10 +291,16 @@ const OtherProfile = () => {
             <div className="border-2 rounded-md my-2">
               <div className="p-4 border-b-2 rounded">
                 <p className="text-gray-500 text-xl">Biography</p>
-                {console.log(otherProfileData?.profile?.skills.flatMap(skill => skill.skills))}
+                {console.log(
+                  otherProfileData?.profile?.skills.flatMap(
+                    (skill) => skill.skills
+                  )
+                )}
               </div>
               <div className="p-4">
-                <p className="py-2">{otherProfileData?.profile?.bio ?? "No bio Avaliable"}</p>
+                <p className="py-2">
+                  {otherProfileData?.profile?.bio ?? "No bio Avaliable"}
+                </p>
               </div>
             </div>
             {/* Bio End */}
@@ -306,17 +312,22 @@ const OtherProfile = () => {
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-3 flex-wrap">
-                  {
-                    otherProfileData?.profile?.skills.length > 0
-                      ? otherProfileData?.profile?.skills.flatMap((skill) =>
-                        skill.skills.map((data, index) => (
-                          <p key={index} className="px-4 py-1 border-2 rounded-2xl uppercase">
-                            {data}
-                          </p>
-                        ))
-                      )
-                      : <p className="px-4 py-1 border-2 rounded-2xl uppercase">No Skills Available</p>
-                  }
+                  {otherProfileData?.profile?.skills.length > 0 ? (
+                    otherProfileData?.profile?.skills.flatMap((skill) =>
+                      skill.skills.map((data, index) => (
+                        <p
+                          key={index}
+                          className="px-4 py-1 border-2 rounded-2xl uppercase"
+                        >
+                          {data}
+                        </p>
+                      ))
+                    )
+                  ) : (
+                    <p className="px-4 py-1 border-2 rounded-2xl uppercase">
+                      No Skills Available
+                    </p>
+                  )}
 
                   {/* <p className="px-4 py-1 border-2 rounded-2xl uppercase">php</p>
                   <p className="px-4 py-1 border-2 rounded-2xl uppercase">Laravel</p>
@@ -330,7 +341,6 @@ const OtherProfile = () => {
                   <p className="px-4 py-1 border-2 rounded-2xl uppercase">Laravel</p> */}
                 </div>
               </div>
-
             </div>
             {/* Skill End */}
 
@@ -338,23 +348,46 @@ const OtherProfile = () => {
             <div className="my-4">
               <div className="p-4 border-2 rounded-md flex items-center justify-between">
                 <p className="text-lg font-semibold">Employment</p>
-                {btn1 ? <FaChevronDown onClick={() => setBtn1(!btn1)} className="cursor-pointer" /> : <FaAngleUp onClick={() => setBtn1(!btn1)} className="cursor-pointer" />}
-
-
+                {btn1 ? (
+                  <FaChevronDown
+                    onClick={() => setBtn1(!btn1)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <FaAngleUp
+                    onClick={() => setBtn1(!btn1)}
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
 
-              {otherProfileData?.profile?.employee.length > 0
-                ? otherProfileData?.profile?.employee.map((item, index) => (
-                  <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn1 ? 'block' : 'hidden'}`} key={index}>
-                    <p>{item.role} | <span>{item.department}</span></p>
-                    <p>{item.organization} | {`${item.city}, ${item.region}, ${item.country}`} </p>
+              {otherProfileData?.profile?.employee.length > 0 ? (
+                otherProfileData?.profile?.employee.map((item, index) => (
+                  <div
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                      btn1 ? "block" : "hidden"
+                    }`}
+                    key={index}
+                  >
+                    <p>
+                      {item.role} | <span>{item.department}</span>
+                    </p>
+                    <p>
+                      {item.organization} |{" "}
+                      {`${item.city}, ${item.region}, ${item.country}`}{" "}
+                    </p>
                     <p>{`${item.start_date} - ${item.end_date}`}</p>
                   </div>
-                )) : <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn1 ? 'block' : 'hidden'}`}><p>No Employee Avaliable</p></div>
-              }
-
-
-
+                ))
+              ) : (
+                <div
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                    btn1 ? "block" : "hidden"
+                  }`}
+                >
+                  <p>No Employee Avaliable</p>
+                </div>
+              )}
             </div>
             {/* Employee End */}
 
@@ -362,21 +395,47 @@ const OtherProfile = () => {
             <div className="my-4">
               <div className="p-4 border-2 rounded-md flex items-center justify-between">
                 <p className="text-lg font-semibold">Education</p>
-                {btn2 ? <FaChevronDown onClick={() => setBtn2(!btn2)} className="cursor-pointer" /> : <FaAngleUp onClick={() => setBtn2(!btn2)} className="cursor-pointer" />}
+                {btn2 ? (
+                  <FaChevronDown
+                    onClick={() => setBtn2(!btn2)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <FaAngleUp
+                    onClick={() => setBtn2(!btn2)}
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
 
-              {otherProfileData?.profile?.education.length > 0
-                ? otherProfileData?.profile?.education.map((item, index) => (
-
-                  <div key={index} className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn2 ? 'block' : 'hidden'}`}>
+              {otherProfileData?.profile?.education.length > 0 ? (
+                otherProfileData?.profile?.education.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                      btn2 ? "block" : "hidden"
+                    }`}
+                  >
                     <p>Degree: {item.degree}</p>
-                    <p>Department: <span>{item.department}</span></p>
-                    <p>University Name: {item.organization_name} | {`${item.city}, ${item.region}, ${item.country}`} </p>
+                    <p>
+                      Department: <span>{item.department}</span>
+                    </p>
+                    <p>
+                      University Name: {item.organization_name} |{" "}
+                      {`${item.city}, ${item.region}, ${item.country}`}{" "}
+                    </p>
                     <p>{`${item.start_date} - ${item.end_date}`}</p>
                   </div>
-                )) : <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn2 ? 'block' : 'hidden'}`}><p>No Education Avaliable</p></div>
-              }
-
+                ))
+              ) : (
+                <div
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                    btn2 ? "block" : "hidden"
+                  }`}
+                >
+                  <p>No Education Avaliable</p>
+                </div>
+              )}
             </div>
             {/* Education End */}
 
@@ -384,21 +443,46 @@ const OtherProfile = () => {
             <div className="my-4">
               <div className="p-4 border-2 rounded-md flex items-center justify-between">
                 <p className="text-lg font-semibold">Professional Activity</p>
-                {btn3 ? <FaChevronDown onClick={() => setBtn3(!btn3)} className="cursor-pointer" /> : <FaAngleUp onClick={() => setBtn3(!btn3)} className="cursor-pointer" />}
+                {btn3 ? (
+                  <FaChevronDown
+                    onClick={() => setBtn3(!btn3)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <FaAngleUp
+                    onClick={() => setBtn3(!btn3)}
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
 
-              {otherProfileData?.profile?.professional_activities.length > 0
-                ? otherProfileData?.profile?.professional_activities.map((item, index) => (
-                  <div key={index} className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn3 ? 'block' : 'hidden'}`}>
-
-                    <p>Organization Name: {item.organization_name}</p>
-                    <p>Department: <span>{item.department}</span></p>
-                    <p> {`Location: ${item.city}, ${item.country}`} </p>
-                    <p>{`${item.start_date} - ${item.end_date}`}</p>
-                  </div>
-                )) : <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn3 ? 'block' : 'hidden'}`}><p>No Professional Activity Avaliable</p></div>}
-
-
+              {otherProfileData?.profile?.professional_activities.length > 0 ? (
+                otherProfileData?.profile?.professional_activities.map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                        btn3 ? "block" : "hidden"
+                      }`}
+                    >
+                      <p>Organization Name: {item.organization_name}</p>
+                      <p>
+                        Department: <span>{item.department}</span>
+                      </p>
+                      <p> {`Location: ${item.city}, ${item.country}`} </p>
+                      <p>{`${item.start_date} - ${item.end_date}`}</p>
+                    </div>
+                  )
+                )
+              ) : (
+                <div
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                    btn3 ? "block" : "hidden"
+                  }`}
+                >
+                  <p>No Professional Activity Avaliable</p>
+                </div>
+              )}
             </div>
             {/* Professional Activity End */}
 
@@ -406,23 +490,48 @@ const OtherProfile = () => {
             <div className="my-4">
               <div className="p-4 border-2 rounded-md flex items-center justify-between">
                 <p className="text-lg font-semibold">Funding</p>
-                {btn4 ? <FaChevronDown onClick={() => setBtn4(!btn4)} className="cursor-pointer" /> : <FaAngleUp onClick={() => setBtn4(!btn4)} className="cursor-pointer" />}
+                {btn4 ? (
+                  <FaChevronDown
+                    onClick={() => setBtn4(!btn4)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <FaAngleUp
+                    onClick={() => setBtn4(!btn4)}
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
 
-
-              {otherProfileData?.profile?.funding_details.length > 0
-                ? otherProfileData?.profile?.funding_details.map((item, index) => (
-                  <div key={index} className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn4 ? 'block' : 'hidden'}`}>
-                    <p>Funding Organization: {item.funding_agency_name} | <span>Funding Type: {item.funding_type}</span></p>
-                    <p> Project Name: {item.title}</p>
-                    <p>Project Link: {item.project_link}</p>
-                    <p>{`${item.start_date} - ${item.end_date}`}</p>
-                    <p>Amount: ${item.total_funding_amt}</p>
-                  </div>
-                )) : <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn4 ? 'block' : 'hidden'}`}><p>No Funding Details Avaliable</p></div>}
-
-
-
+              {otherProfileData?.profile?.funding_details.length > 0 ? (
+                otherProfileData?.profile?.funding_details.map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                        btn4 ? "block" : "hidden"
+                      }`}
+                    >
+                      <p>
+                        Funding Organization: {item.funding_agency_name} |{" "}
+                        <span>Funding Type: {item.funding_type}</span>
+                      </p>
+                      <p> Project Name: {item.title}</p>
+                      <p>Project Link: {item.project_link}</p>
+                      <p>{`${item.start_date} - ${item.end_date}`}</p>
+                      <p>Amount: ${item.total_funding_amt}</p>
+                    </div>
+                  )
+                )
+              ) : (
+                <div
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                    btn4 ? "block" : "hidden"
+                  }`}
+                >
+                  <p>No Funding Details Avaliable</p>
+                </div>
+              )}
             </div>
             {/* Funding End */}
 
@@ -430,17 +539,44 @@ const OtherProfile = () => {
             <div className="my-4">
               <div className="p-4 border-2 rounded-md flex items-center justify-between">
                 <p className="text-lg font-semibold">Works</p>
-                {btn5 ? <FaChevronDown onClick={() => setBtn5(!btn5)} className="cursor-pointer" /> : <FaAngleUp onClick={() => setBtn5(!btn5)} className="cursor-pointer" />}
+                {btn5 ? (
+                  <FaChevronDown
+                    onClick={() => setBtn5(!btn5)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <FaAngleUp
+                    onClick={() => setBtn5(!btn5)}
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
-              {otherProfileData?.profile?.works.length > 0
-                ? otherProfileData?.profile?.works.map((item, index) => (
-                  <div key={index} className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn5 ? 'block' : 'hidden'}`}>
-                    <p> {item.work_title} | {item.publication_date}</p>
+              {otherProfileData?.profile?.works.length > 0 ? (
+                otherProfileData?.profile?.works.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                      btn5 ? "block" : "hidden"
+                    }`}
+                  >
+                    <p>
+                      {" "}
+                      {item.work_title} | {item.publication_date}
+                    </p>
                     <p> Work Type: {item.work_type}</p>
                     <p>Journal Title: {item.journal_title}</p>
                     <p>{item.link}</p>
                   </div>
-                )) : <div className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn5 ? 'block' : 'hidden'}`}><p>No Works Avaliable</p></div>}
+                ))
+              ) : (
+                <div
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
+                    btn5 ? "block" : "hidden"
+                  }`}
+                >
+                  <p>No Works Avaliable</p>
+                </div>
+              )}
             </div>
             {/* Works End */}
           </div>
@@ -454,28 +590,31 @@ const OtherProfile = () => {
             <div className="flex xss:gap-2 sm:gap-6">
               <button
                 onClick={() => setActiveTab("All")}
-                className={`${activeTab === "All"
-                  ? "bg-[#0000ff] text-white"
-                  : "border border-[#0000ff] text-[#0000ff]"
-                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${
+                  activeTab === "All"
+                    ? "bg-[#0000ff] text-white"
+                    : "border border-[#0000ff] text-[#0000ff]"
+                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 All
               </button>
               <button
                 onClick={() => setActiveTab("Articles")}
-                className={`${activeTab === "Articles"
-                  ? "bg-[#0000ff] text-white"
-                  : "border border-[#0000ff] text-[#0000ff]"
-                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${
+                  activeTab === "Articles"
+                    ? "bg-[#0000ff] text-white"
+                    : "border border-[#0000ff] text-[#0000ff]"
+                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 Articles
               </button>
               <button
                 onClick={() => setActiveTab("Posts")}
-                className={`${activeTab === "Posts"
-                  ? "bg-[#0000ff] text-white"
-                  : "border border-[#0000ff] text-[#0000ff]"
-                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${
+                  activeTab === "Posts"
+                    ? "bg-[#0000ff] text-white"
+                    : "border border-[#0000ff] text-[#0000ff]"
+                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 Posts
               </button>

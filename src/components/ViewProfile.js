@@ -138,8 +138,8 @@ const ViewProfile = () => {
   //   return <Loader />;
   // }
 
-  // console.log("My Uploads Data: ", myUploads);
-  // console.log("Saved Files Data: ", savedFiles);
+  //console.log("My Uploads Data: ", myUploads);
+  console.log("Saved Files Data: ", savedFiles);
 
   // console.log("Profile Data: ", profileData);
   // console.log("Education Data: ", educationData);
@@ -285,6 +285,29 @@ const ViewProfile = () => {
     }
   };
 
+  const downloadpdf = async (id, user_id) => {
+      try {
+        const response = await api.post(
+          "downloadArticle",
+          {
+            id: id,
+            user_id: user_id,
+          },
+          {
+            withCredentials: true,
+            responseType: "blob",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const blob = await response.data; // Convert the response to a Blob
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      } catch (error) {
+        console.error(error);
+      }
+    };
   // Toggle function for expanding/collapsing sections
   const toggleSection = (section) => {
     switch (section) {
@@ -1332,8 +1355,16 @@ const ViewProfile = () => {
                                       )}
                                     </div>
 
-                                    <button className="bg-[#0000FF] px-[2vw] xl:py-[0.3vw] xss:w-[35%] md:w-[25%] lg:w-[35%] xss:py-2  text-white font-semibold rounded-sm">
-                                      <Link to={post.image}>Download</Link>
+                                    <button
+                                      className="bg-[#0000FF] px-[2vw] xl:py-[0.3vw] xss:w-[35%] md:w-[25%] lg:w-[35%] xss:py-2  text-white font-semibold rounded-sm"
+                                      onClick={() =>
+                                        downloadpdf(
+                                          post.articleId,
+                                          post.articleUserId
+                                        )
+                                      }
+                                    >
+                                      Download
                                     </button>
                                   </div>
                                 </div>

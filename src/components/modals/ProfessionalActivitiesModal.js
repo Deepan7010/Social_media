@@ -39,7 +39,7 @@ export const ProfessionalActivityAddModal = ({
         degree: degree ? `${degree.getFullYear()}` : null,
         start_date: startDate ? startDate.getFullYear() : null,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "professional_activity",
       };
 
@@ -285,7 +285,7 @@ export const ProfessionalActivityEditModal = ({
         degree: isDegreeChanged ? `${degree.getFullYear()}` : degree,
         start_date: isStartYearChanged ? startDate.getFullYear() : startDate,
         end_date: endDate,
-        profile_id: user.id,
+        profile_id: user.profile.id,
         type: "professional_activity",
       };
 
