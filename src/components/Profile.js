@@ -23,7 +23,7 @@ const Profile = () => {
   const [following, setFollowing] = useState([]);
   const [suggestedFollowers, setSuggestedFollowers] = useState([]);
 
-  const [isDatafetched, setIsDataFetched] = useState(false);
+  const [isDatafetched, setIsDataFetched] = useState(true);
 
   const handleSuggestedFollowers = async (newData) => {
     //console.log("suggestions Data in api now: ", suggestedFollowers);
@@ -68,7 +68,7 @@ const Profile = () => {
             res.data.suggestion.length > 0 ? res.data.suggestion : []
           );
 
-          setIsDataFetched(true);
+          setIsDataFetched(false);
         });
     } catch (error) {
       console.log("Error fetching the Following Data: ", error);
@@ -96,7 +96,7 @@ const Profile = () => {
           handleSuggestedFollowers(
             res.data.suggestion.length > 0 ? res.data.suggestion : []
           );
-          setIsDataFetched(true);
+          setIsDataFetched(false);
         });
     } catch (error) {
       console.log("Error fetching the Followers Data: ", error);
@@ -123,7 +123,7 @@ const Profile = () => {
         .then((res) => {
           console.log(res.data);
           toast.success(res.data.message);
-          setIsDataFetched(false);
+          setIsDataFetched(true);
           filterSuggestions(followId);
         });
     } catch (error) {
@@ -153,7 +153,7 @@ const Profile = () => {
         .then((res) => {
           console.log(res.data);
           toast.success(res.data.message);
-          setIsDataFetched(false);
+          setIsDataFetched(true);
         });
     } catch (error) {
       console.log(error);
@@ -182,7 +182,7 @@ const Profile = () => {
         .then((res) => {
           console.log(res.data);
           toast.success("Succesfully Removed Follower");
-          setIsDataFetched(false);
+          setIsDataFetched(true);
         });
     } catch (error) {
       console.log(error);
@@ -198,6 +198,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    if (!isDatafetched) return;
     fetchFollowingData();
     fetchFollowersData();
   }, [isDatafetched]);

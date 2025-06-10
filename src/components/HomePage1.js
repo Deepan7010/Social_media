@@ -10,7 +10,7 @@ import {
   faHeart as regularHeart,
   faBookmark as regularBookmark,
 } from "@fortawesome/free-regular-svg-icons";
-import Ellipse4 from "../assets/img/Ellipse4.png";
+// import Ellipse4 from "../assets/img/Ellipse4.png";
 import weuieyesonfilled from "../assets/img/weuieyesonfilled.png";
 import openmojishare from "../assets/img/openmojishare.png";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -307,7 +307,7 @@ const ArticleCard = ({
         headers: { "Content-Type": "application/json" },
       });
       dataFetch(true);
-      console.log(response);
+      // console.log(response);
       if (response.status === 201) {
         toast.success(response.data.message, {
           position: "top-right",
@@ -348,7 +348,7 @@ const ArticleCard = ({
       });
       dataFetch(true);
       // window.location.reload()
-      console.log(response);
+      // console.log(response);
       if (response.status === 201) {
         toast.success(response.data.message, {
           position: "top-right",
@@ -385,7 +385,7 @@ const ArticleCard = ({
         headers: { "Content-Type": "application/json" },
       });
       dataFetch(true);
-      console.log(response);
+      // console.log(response);
       if (response.status === 201) {
         toast.success(response.data.message, {
           position: "top-right",

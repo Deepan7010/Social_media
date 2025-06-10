@@ -13,7 +13,10 @@ const Box = ({ closePopup }) => {
   const [inputValue, setInputValue] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null); // State to hold the uploaded image
   const [uploadFile, setUploadFile] = useState(null);
-  const [ icon, SetIcons ] = useState(60)
+  const [icon, SetIcons] = useState(60);
+
+  const [imageError, setImageError] = useState(null);
+  const [descError, setdescError] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,15 +37,47 @@ const Box = ({ closePopup }) => {
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setUploadedImage(imageURL); // Set the uploaded image
-      setUploadFile(file);
+      // Check the file type
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+      if (allowedTypes.includes(file.type)) {
+        const imageURL = URL.createObjectURL(file);
+        setUploadedImage(imageURL);
+        setUploadFile(file);
+        setImageError(null); // Clear any previous error
+      } else {
+        // If the file is not an image, show an error
+        setUploadedImage(null);
+        setUploadFile(null);
+        setImageError("Only image files (jpeg, png, gif, webp) are allowed.");
+      }
+    } else {
+      // If no file is selected
+      setUploadedImage(null);
+      setUploadFile(null);
+      setImageError("No file selected. Please choose an image.");
     }
   };
 
   const handlePostUpload = async (e) => {
     e.preventDefault();
     try {
+      if (!inputValue.trim() && uploadedImage === null) {
+        setdescError("Description cannot be empty.");
+        setImageError("No file selected. Please choose an image.");
+        return;
+      }
+      if (!inputValue.trim()) {
+        setdescError("Description cannot be empty.");
+        return;
+      } else {
+        setdescError(null); // Clear any previous error
+      }
+      if (uploadedImage === null) {
+        setImageError("No file selected. Please choose an image.");
+        return;
+      } else {
+        setImageError(null); // Clear any previous error
+      }
       const data = new FormData();
       data.append("description", inputValue);
       data.append("post", uploadFile);
@@ -99,6 +134,11 @@ const Box = ({ closePopup }) => {
               placeholder="Share your thoughts with other scholars..."
               className="md:w-full p-2 text-sm border-2 border-gray-200 text-md outline-none font-poppins bg-transparent w-full"
             />
+            {descError && (
+              <p className="text-red-500 font-bold mt-2">
+                {descError}
+              </p>
+            )}
           </div>
 
           <div className=" mt-5 md:mt-5 lg:mt-10 h-44 w-full">
@@ -136,6 +176,14 @@ const Box = ({ closePopup }) => {
                     onChange={handleFileUpload}
                   />
                 </>
+              )}
+
+            </div>
+            <div>
+              {imageError && (
+                <p className="text-red-500 font-bold mt-2">
+                  {imageError}
+                </p>
               )}
             </div>
 

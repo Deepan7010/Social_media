@@ -28,7 +28,7 @@ export const Homepage = () => {
 
   const [suggestions, setSuggestions] = useState([]);
   const [userList, setUserList] = useState([]);
-  const [dataFetch, setDataFetch] = useState(false);
+  const [dataFetch, setDataFetch] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const isxsScreen = useMediaQuery("(min-width: 480px) and (max-width: 639px)");
 
@@ -75,7 +75,7 @@ export const Homepage = () => {
   useEffect(() => {
     const fetchHomeFeed = async () => {
       if (user && user.id) {
-        console.log("homeFeed");
+        // console.log("homeFeed");
         try {
           const response = await api.post(
             "homeFeed",
@@ -85,6 +85,7 @@ export const Homepage = () => {
               headers: { "Content-Type": "application/json" },
             }
           );
+          // console.log("hello");
           setHomeFeed(response.data.homeFeed);
           setUserList(response.data.userDetails);
           setSuggestions(response.data.homeFeed.suggestions);
@@ -94,7 +95,7 @@ export const Homepage = () => {
         }
       }
     };
-    if (user && user.id) fetchHomeFeed();
+    if (user && user.id && dataFetch === true) fetchHomeFeed();
   }, [user, isAuthenticated, dataFetch]);
 
   useEffect(() => {
@@ -124,9 +125,8 @@ export const Homepage = () => {
           post={true}
         />
         <div
-          className={`fixed lg:top-24 ${
-            isLargeScreen ? "right-3" : "left-5"
-          } xl:right-5 md:bottom-5 hidden mt-0.5 lg:mt-3.5 w-1/5 md:flex flex-col lg:flex xl:w-[22vw] lg:w-[26vw] md:w-[32vw] xl:h-fit   md:h-auto lg:h-fit lg:me-5 xl:me-0 py-3 rounded border-2 px-4 md:px-4 lg:px-5`}
+          className={`fixed lg:top-24 ${isLargeScreen ? "right-3" : "left-5"
+            } xl:right-5 md:bottom-5 hidden mt-0.5 lg:mt-3.5 w-1/5 md:flex flex-col lg:flex xl:w-[22vw] lg:w-[26vw] md:w-[32vw] xl:h-fit   md:h-auto lg:h-fit lg:me-5 xl:me-0 py-3 rounded border-2 px-4 md:px-4 lg:px-5`}
         >
           <Suggestionsbar
             suggestedFollowers={suggestions}
@@ -205,12 +205,12 @@ export const Homepage = () => {
                   src={user.image}
                   alt="User"
                   className="w-20 h-16 rounded-full object-cover cursor-pointer"
-                  onClick={()=>navigate("/profileView")}
+                  onClick={() => navigate("/profileView")}
                 />
               ) : (
                 <CgProfile
                   className="w-20 h-16 cursor-pointer"
-                  onClick={()=>navigate("/profileView")}
+                  onClick={() => navigate("/profileView")}
                 />
               )}
               <input

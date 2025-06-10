@@ -20,6 +20,7 @@ const OtherProfile = () => {
   const { userId } = useParams();
   const { user } = useContext(Context);
   const [otherProfileData, setOtherProfileData] = useState({});
+  const [profile, setprofile] = useState({});
   const [profileCounts, setProfileCounts] = useState({
     followersCount: 0,
     followingCount: 0,
@@ -46,6 +47,7 @@ const OtherProfile = () => {
             `fetchProfile`,
             {
               user_id: userId,
+              follow_id: user.id,
             },
             {
               withCredentials: true,
@@ -58,6 +60,7 @@ const OtherProfile = () => {
             // console.log(res.data.following_count);
 
             setOtherProfileData(res.data.profile_data.user);
+            setprofile(res.data);
 
             setProfileCounts({
               followersCount:
@@ -129,13 +132,13 @@ const OtherProfile = () => {
     );
   };
 
-  const handleFollow = async (followId) => {
+  const handleFollow = async (followId, action) => {
     //console.log("Id to be followed: ", followId);
 
     try {
       await api
         .post(
-          `/follow`,
+          `/${action}`,
           {
             logged_id: user.id,
             follow_id: followId,
@@ -254,12 +257,13 @@ const OtherProfile = () => {
 
               {/* Right Column: Buttons */}
               <div className="space-x-4 lg:ml-6 flex xss:justify-center xss:items-center sm:hidden lg:flex">
-                <button
-                  onClick={() => handleFollow(userId)}
+                {user.id != userId && (<button
+                  onClick={() => handleFollow(userId, profile.am_i_following ? "unfollow" : "follow")}
                   className="bg-[#0000ff] hover:bg-blue-700 border-blue-600 rounded-md xs:px-8 lg:px-5 xl:px-8 py-2 xss:px-4 text-white font-semibold text-lg"
                 >
-                  Follow
-                </button>
+                  {console.log(user.id ,"", userId )}
+                  {profile.am_i_following ? "Unfollow" : "Follow"}
+                </button>)}
                 <button className="border border-[#0000ff] hover:bg-blue-100 rounded-md xs:px-7 lg:px-4 xl:px-7 py-2 xss:px-4 text-[#0000ff] font-semibold text-lg">
                   Message
                 </button>
@@ -364,9 +368,8 @@ const OtherProfile = () => {
               {otherProfileData?.profile?.employee.length > 0 ? (
                 otherProfileData?.profile?.employee.map((item, index) => (
                   <div
-                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                      btn1 ? "block" : "hidden"
-                    }`}
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn1 ? "block" : "hidden"
+                      }`}
                     key={index}
                   >
                     <p>
@@ -381,9 +384,8 @@ const OtherProfile = () => {
                 ))
               ) : (
                 <div
-                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                    btn1 ? "block" : "hidden"
-                  }`}
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn1 ? "block" : "hidden"
+                    }`}
                 >
                   <p>No Employee Avaliable</p>
                 </div>
@@ -412,9 +414,8 @@ const OtherProfile = () => {
                 otherProfileData?.profile?.education.map((item, index) => (
                   <div
                     key={index}
-                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                      btn2 ? "block" : "hidden"
-                    }`}
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn2 ? "block" : "hidden"
+                      }`}
                   >
                     <p>Degree: {item.degree}</p>
                     <p>
@@ -429,9 +430,8 @@ const OtherProfile = () => {
                 ))
               ) : (
                 <div
-                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                    btn2 ? "block" : "hidden"
-                  }`}
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn2 ? "block" : "hidden"
+                    }`}
                 >
                   <p>No Education Avaliable</p>
                 </div>
@@ -461,9 +461,8 @@ const OtherProfile = () => {
                   (item, index) => (
                     <div
                       key={index}
-                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                        btn3 ? "block" : "hidden"
-                      }`}
+                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn3 ? "block" : "hidden"
+                        }`}
                     >
                       <p>Organization Name: {item.organization_name}</p>
                       <p>
@@ -476,9 +475,8 @@ const OtherProfile = () => {
                 )
               ) : (
                 <div
-                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                    btn3 ? "block" : "hidden"
-                  }`}
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn3 ? "block" : "hidden"
+                    }`}
                 >
                   <p>No Professional Activity Avaliable</p>
                 </div>
@@ -508,9 +506,8 @@ const OtherProfile = () => {
                   (item, index) => (
                     <div
                       key={index}
-                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                        btn4 ? "block" : "hidden"
-                      }`}
+                      className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn4 ? "block" : "hidden"
+                        }`}
                     >
                       <p>
                         Funding Organization: {item.funding_agency_name} |{" "}
@@ -525,9 +522,8 @@ const OtherProfile = () => {
                 )
               ) : (
                 <div
-                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                    btn4 ? "block" : "hidden"
-                  }`}
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn4 ? "block" : "hidden"
+                    }`}
                 >
                   <p>No Funding Details Avaliable</p>
                 </div>
@@ -555,9 +551,8 @@ const OtherProfile = () => {
                 otherProfileData?.profile?.works.map((item, index) => (
                   <div
                     key={index}
-                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                      btn5 ? "block" : "hidden"
-                    }`}
+                    className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn5 ? "block" : "hidden"
+                      }`}
                   >
                     <p>
                       {" "}
@@ -570,9 +565,8 @@ const OtherProfile = () => {
                 ))
               ) : (
                 <div
-                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${
-                    btn5 ? "block" : "hidden"
-                  }`}
+                  className={`py-5 border-[1px] my-4 mx-5 leading-10 px-8 ${btn5 ? "block" : "hidden"
+                    }`}
                 >
                   <p>No Works Avaliable</p>
                 </div>
@@ -590,31 +584,28 @@ const OtherProfile = () => {
             <div className="flex xss:gap-2 sm:gap-6">
               <button
                 onClick={() => setActiveTab("All")}
-                className={`${
-                  activeTab === "All"
-                    ? "bg-[#0000ff] text-white"
-                    : "border border-[#0000ff] text-[#0000ff]"
-                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${activeTab === "All"
+                  ? "bg-[#0000ff] text-white"
+                  : "border border-[#0000ff] text-[#0000ff]"
+                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 All
               </button>
               <button
                 onClick={() => setActiveTab("Articles")}
-                className={`${
-                  activeTab === "Articles"
-                    ? "bg-[#0000ff] text-white"
-                    : "border border-[#0000ff] text-[#0000ff]"
-                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${activeTab === "Articles"
+                  ? "bg-[#0000ff] text-white"
+                  : "border border-[#0000ff] text-[#0000ff]"
+                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 Articles
               </button>
               <button
                 onClick={() => setActiveTab("Posts")}
-                className={`${
-                  activeTab === "Posts"
-                    ? "bg-[#0000ff] text-white"
-                    : "border border-[#0000ff] text-[#0000ff]"
-                } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
+                className={`${activeTab === "Posts"
+                  ? "bg-[#0000ff] text-white"
+                  : "border border-[#0000ff] text-[#0000ff]"
+                  } rounded-3xl xss:px-5 px-8 py-2 font-bold xss:text-md text-lg`}
               >
                 Posts
               </button>
@@ -690,17 +681,19 @@ const OtherProfile = () => {
                   </div>
                 ))
               ) : (
-                <p>No Article Uploads yet</p>
+                activeTab === "All" ? <p>No Article and Post Uploads yet</p> : <p>No Article Uploads yet</p>
+
               )}
             </>
           ) : null}
 
-          {/* {activeTab === "All" || activeTab === "Posts" ? (
+          {activeTab === "All" || activeTab === "Posts" ? (
             <>
               {posts && posts.length > 0 ? (
                 posts.map((post, index) => (
-                  <div id={index} className="books flex flex-col space-y-4">
-                          <div className="flex flex-col w-auto h-auto xss:px-3 xs:px-4 py-4 border rounded-lg shadow-sm bg-white mr-4z">
+                  <div id={index} className="books flex flex-col space-y-4" key={index}>
+                    {console.log("Post Data: ", post)}
+                    <div className="flex flex-col w-auto h-auto xss:px-3 xs:px-4 py-4 border rounded-lg shadow-sm bg-white mr-4z">
                       <div className="flex items-center justify-between space-x-4 border-b border-gray-200 pb-4">
                         <div className="flex items-center xss:space-x-2 sm:space-x-4 sm:ml-4">
                           <div className="w-16 h-16">
@@ -766,10 +759,11 @@ const OtherProfile = () => {
                   </div>
                 ))
               ) : (
-                <p>No Article Uploads yet</p>
+                activeTab === "Posts" && <p>No Post Uploads yet</p>
+
               )}
             </>
-          ) : null} */}
+          ) : null}
         </div>
       </div>
       <Footer />
